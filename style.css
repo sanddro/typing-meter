@@ -14,14 +14,18 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+}
+
 .info {
-    position: absolute;
-    left: 0;
-    right: 0;
-    padding: 100px;
+    margin: 60px 0;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 50px;
-    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .info div {
@@ -40,17 +44,14 @@ body {
 
 .box {
     display: none;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid #999;
     min-height: 200px;
     width: 600px;
     padding: 30px;
-    font-family: verdana;
+    font-family: monospace;
+    font-size: 18px;
     font-weight: bold;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    border-radius: 4px;
     user-select: none;
     color: #333;
     background: white;
@@ -63,11 +64,30 @@ body {
 
 .box span.typed {
     color: lightgray;
+    position: relative;
+}
+
+.box span.cursor {
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+}
+
+.box span.typed.before-wrap:after {
+    content: "_";
+    display: block;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    color: black;
 }
 
 .end-popup {
-    display: none;    
+    display: none;  
+    align-items: center;
+    justify-content: center;  
     position: fixed;
+    left: 0;
+    top: 0;
     width: 100vw;
     height: 100vh;
     background: rgb(55, 55, 55, .9);
@@ -76,10 +96,6 @@ body {
 
 .end-popup .inner {
     display: flex;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: 500px;
     color: #222;
     font-size: 22px;

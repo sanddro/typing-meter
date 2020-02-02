@@ -22,6 +22,7 @@
     for (let i = 0; i < text.length; i++) {
         let elem = document.createElement('span');
         elem.innerHTML = text[i];
+        if (i == 0) elem.classList.add('cursor');
         box.appendChild(elem);
     }
     let letters = document.querySelectorAll('.box span');
@@ -52,10 +53,19 @@
         }
         nPressed++;
         if (text[lettersIdx] == e.key) {
+            letters[lettersIdx].classList.remove('cursor');
             letters[lettersIdx].classList.add('typed');
+            let beforeWrap = document.querySelector('.before-wrap');
+            if (beforeWrap)
+                beforeWrap.classList.remove('before-wrap');
+            // Wrapped space
+            if (lettersIdx < letters.length - 1 && (!letters[lettersIdx + 1].offsetHeight || !letters[lettersIdx + 1].offsetWidth))
+                letters[lettersIdx].classList.add('before-wrap');
             lettersIdx++;
             if(lettersIdx == text.length){
                 end();
+            } else if (letters[lettersIdx].offsetHeight && letters[lettersIdx].offsetWidth) {
+                letters[lettersIdx].classList.add('cursor');
             }
         } else {
             box.classList.add('err');
@@ -68,7 +78,7 @@
     function end(){
         document.removeEventListener('keypress', keyPressHandler);
         clearInterval(timerInterval);
-        popup.style.display = 'block';
+        popup.style.display = 'flex';
         seconds.innerHTML = secondsPassed;
         errors.innerHTML = nPressed - text.length;
         
